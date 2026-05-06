@@ -18,6 +18,7 @@ The script does not log in. It only reads public pages.
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -128,7 +129,11 @@ def scrape_handle(handle: str) -> list[Post]:
                 collected[p.post_id] = p
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        launch_kwargs: dict = {"headless": True}
+        executable = os.environ.get("CHROMIUM_PATH")
+        if executable:
+            launch_kwargs["executable_path"] = executable
+        browser = p.chromium.launch(**launch_kwargs)
         ctx = browser.new_context(
             user_agent=(
                 "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) "

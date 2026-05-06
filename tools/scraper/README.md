@@ -40,6 +40,17 @@ python tools/scraper/run.py
 | `MAX_SCROLLS` | 30 | сколько раз листать; если постов мало — увеличить |
 | `SCROLL_PAUSE_MS` | 1500 | пауза между скроллами в мс |
 
+## Если Playwright ругается «Executable doesn't exist at …chrome-headless-shell»
+
+Это бывает, когда установленная версия Playwright ждёт другую версию Chromium, чем та, что у вас на диске (например, в управляемом окружении вроде Codespaces или corporate-сборки уже лежит готовый Chromium). Два варианта:
+
+1. Обычный путь: `playwright install chromium` — скачает нужную версию.
+2. Указать путь к существующему бинарю через переменную окружения:
+   ```bash
+   CHROMIUM_PATH=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell python tools/scraper/run.py
+   ```
+   Подходит и `chromium-XXXX/chrome-linux/chrome`, и `chromium_headless_shell-XXXX/chrome-linux/headless_shell`.
+
 ## Если собрано 0 постов
 
 Threads регулярно меняет схему GraphQL-ответов. Эвристика парсинга в `extract_posts()` ищет в JSON-узлах поля `caption.text` + `like_count` + `pk/id`. Если этих полей в ответах больше нет — функция вернёт пусто.
