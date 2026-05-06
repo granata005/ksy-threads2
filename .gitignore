@@ -5,3 +5,9 @@
 *.swo
 node_modules/
 presentation.html
+
+# scraper artifacts
+tools/scraper/raw/
+.venv/
+__pycache__/
+*.pyc
