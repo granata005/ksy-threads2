@@ -5,9 +5,14 @@
 *.swo
 node_modules/
 presentation.html
+<<<<<<< HEAD
 
 # scraper artifacts
 tools/scraper/raw/
 .venv/
 __pycache__/
 *.pyc
+=======
+tools/scraper/raw/
+.playwright-mcp/
+>>>>>>> edef2d3 (Add inspiration corpus from 4 Threads profiles (top-20% by likes))
